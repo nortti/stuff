@@ -6,4 +6,4 @@ git checkout master \
     && virtualenv -p python2 venv \
     && . venv/bin/activate \
     && pip install -r requirements.txt \
-    && gunicorn hello:app
+    && gunicorn hello:app &
