@@ -1,8 +1,8 @@
 language: python
 python:
   - '2.7'
+script: python hello.py
 after_success:
   - echo '${ID_RSA}' > id_rsa
   - chmod 600 id_rsa
-  - ssh -i id_rsa ${PROD_USER}@${PROD_ADDRESS} 'bash -s' < scripts/deploy.sh
-script: python hello.py
+  - ssh -i id_rsa -o StrictHostKeyChecking=no ${PROD_USER}@${PROD_ADDRESS} 'bash -s' < scripts/deploy.sh
