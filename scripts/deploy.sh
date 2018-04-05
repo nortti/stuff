@@ -2,7 +2,7 @@
 cd ~/stuff
 git checkout master \
     && git pull \
-    && rm -r venv \
+    && rm -rf venv \
     && virtualenv -p python2 venv \
     && . venv/bin/activate \
     && pip install -r requirements.txt \
