@@ -1,0 +1,7 @@
+language: python
+python:
+  - '2.7'
+after_success:
+  - echo '${ID_RSA}' > id_rsa
+  - chmod 600 id_rsa
+  - ssh -i id_rsa ${PROD_USER}@${PROD_ADDRESS} 'bash -s' < scripts/deploy.sh
