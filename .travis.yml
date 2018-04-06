@@ -12,4 +12,4 @@ deploy:
   script: bash scripts/deploy.sh
   on:
     all_branches: true
-    $TRAVIS_BRANCH =~ ^master|develop$
+    condition: $TRAVIS_BRANCH =~ ^master|develop$
