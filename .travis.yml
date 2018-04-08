@@ -11,14 +11,10 @@ install:
 
 script: skip
 
-stages:
-  - test
-  - name: deploy
-    if: branch IN (master, develop)
-
 jobs:
   include:
     - script: pytest --cov=hello_app tests/ && coveralls
     - stage: deploy
       python: 2.7
       script: scripts/deploy.sh
+      if: branch IN (master, develop)
