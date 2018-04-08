@@ -41,3 +41,5 @@ ssh -i id_rsa \
 EOF
 
 rm id_rsa
+
+coveralls

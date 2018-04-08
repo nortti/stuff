@@ -13,8 +13,6 @@ script: pytest --cov=hello_app tests/
 
 jobs:
   include:
-    - stage: coveralls
-      script: coveralls
     - stage: deploy
       script: scripts/deploy.sh
       if: branch IN (master, develop) AND type = push
