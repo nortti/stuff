@@ -9,10 +9,6 @@ python:
 install:
   - pip install -r requirements.txt
 
-# Key required by travis in python projects, normally testing would be done
-# here but we're doing that in using build stages
-script: true
-
 stages:
   - test
   - name: deploy
