@@ -4,15 +4,19 @@ language: python
 
 python:
   - '2.7'
+  - '3.6'
 
 install:
   - pip install -r requirements.txt
 
-script: pytest --cov=hello_app tests/ && coveralls
+script: pytest --cov=hello_app tests/
 
-deploy:
-  provider: script
-  script: bash scripts/deploy.sh
-  on:
-    all_branches: true
-    condition: $TRAVIS_BRANCH =~ ^master|develop$
+jobs:
+  include:
+    - stage: deploy
+      python: 2.7
+      script: scripts/deploy.sh
+      if: branch IN (master, develop) AND type = push
+
+after_success:
+  - coveralls
