@@ -16,7 +16,7 @@ jobs:
     - stage: deploy
       python: 2.7
       script: scripts/deploy.sh
-      if: branch IN (master, develop)
+      if: branch IN (master, develop) AND type = push
 
 after_success:
   - coveralls
