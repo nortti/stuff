@@ -20,7 +20,6 @@ stages:
 
 jobs:
   - include:
-    - stage: test
       script: pytest --cov=hello_app tests/ && coveralls
     - stage: deploy
       python: 2.7
