@@ -9,7 +9,7 @@ python:
 install:
   - pip install -r requirements.txt
 
-script: pytest --cov=hello_app tests/
+script: pytest --cov=hello_app tests/ && coveralls
 
 jobs:
   include:
