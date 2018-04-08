@@ -19,4 +19,4 @@ jobs:
       if: branch IN (master, develop)
 
 after_success:
-  - codecov
+  - coveralls
