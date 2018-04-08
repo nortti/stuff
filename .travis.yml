@@ -9,14 +9,10 @@ python:
 install:
   - pip install -r requirements.txt
 
-script: pytest --cov=hello_app tests/
+script: pytest --cov=hello_app tests/ && coveralls
 
 jobs:
   include:
     - stage: deploy
-      python: 2.7
       script: scripts/deploy.sh
       if: branch IN (master, develop) AND type = push
-
-after_success:
-  - coveralls
