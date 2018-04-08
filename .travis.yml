@@ -9,11 +9,19 @@ python:
 install:
   - pip install -r requirements.txt
 
-script: pytest --cov=hello_app tests/ && coveralls
+# Key required by travis in python projects, normally testing would be done
+# here but we're doing that in using build stages
+script: true
+
+stages:
+  - test
+  - name: deploy
+    if: branch IN (master, develop)
 
 jobs:
   - include:
+    - stage: test
+      script: pytest --cov=hello_app tests/ && coveralls
     - stage: deploy
       python: 2.7
       script: scripts/deploy.sh
-      if: branch IN (master, develop)
