@@ -1,6 +1,7 @@
 from hello_app import hello
 import unittest
 
+
 class HelloTestCase(unittest.TestCase):
 
     def test_hello(self):
