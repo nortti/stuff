@@ -14,7 +14,7 @@ script: pytest --cov=hello_app tests && coveralls
 jobs:
   include:
     - stage: lint
-      script: pylint hello_app tests
+      script: flake8 hello_app tests
     - stage: deploy
       script: scripts/deploy.sh
       if: branch IN (master, develop) AND type = push
