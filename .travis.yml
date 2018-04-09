@@ -9,10 +9,12 @@ python:
 install:
   - pip install -r requirements.txt
 
-script: pytest --cov=hello_app tests/ && coveralls
+script: pytest --cov=hello_app tests && coveralls
 
 jobs:
   include:
+    - stage: lint
+      script: flake8 hello_app tests
     - stage: deploy
       script: scripts/deploy.sh
       if: branch IN (master, develop) AND type = push
