@@ -28,6 +28,7 @@ echo "$ID_RSA" | base64 --decode > id_rsa
 chmod 600 id_rsa
 
 # Pull and run a docker container over ssh
+# shellcheck disable=SC2087,SC2029
 ssh -i id_rsa \
   -o StrictHostKeyChecking=no \
   "$PROD_USER@$PROD_ADDRESS" << EOF
