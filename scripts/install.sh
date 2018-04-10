@@ -21,7 +21,7 @@ if [ "$env" == "dev" ]; then
     . venv/bin/activate
 fi
 
-# Pip-sync required for pip tools
+# Pip-tools required for pip sync
 pip install pip-tools
 pip-sync requirements/common-requirements.txt \
          requirements/"$env"-requirements.txt
