@@ -14,6 +14,7 @@ script: pytest --cov=hello_app tests && coveralls
 jobs:
   include:
     - stage: lint
+      script: shellcheck scripts/*.sh
       script: flake8 hello_app tests
     - stage: deploy
       script: scripts/deploy.sh
