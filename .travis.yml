@@ -15,6 +15,11 @@ jobs:
   include:
     - stage: lint
       script: shellcheck scripts/*.sh && flake8 hello_app tests
-    - stage: deploy
-      script: scripts/deploy.sh
-      if: branch IN (master, develop) AND type = push
+
+    - stage: deploy to production
+      script: scripts/deploy.sh 8200 stacks-production
+      if: branch IN (master) AND type = push
+
+    - stage: deploy to staging
+      script: scripts/deploy.sh 8210 stacks-staging
+      if: branch IN (develop) AND type = push

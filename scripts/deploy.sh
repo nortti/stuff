@@ -5,13 +5,13 @@
 # Exit on error
 set -e
 
-if [ "$TRAVIS_BRANCH" == "master" ]; then
-  port=8200
-  image=stacks-production
-elif [ "$TRAVIS_BRANCH" == "develop" ]; then
-  port=8210
-  image=stacks-staging
+if [ -z "$TRAVIS" ]; then
+    echo This script is meant to be run from travis only!
+    exit 1
 fi
+
+port=$1
+image=$2
 
 # Build & push docker image from travis
 echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin
