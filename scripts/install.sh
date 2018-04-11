@@ -3,9 +3,8 @@
 # Installs the appropriate dependencies. In dev, does it in a virtualenv.
 # Usage: scripts/install.sh [dev|travis|prod]
 
-# cd to project root (i.e. one level below this script)
-dir=$(dirname "$0")
-cd "$dir"/.. || exit 1
+# Run from one level above this script
+cd "$(dirname "$0")/.." || exit 1
 
 # Default env is dev
 if [ -z "$1" ]; then
@@ -16,9 +15,9 @@ fi
 
 if [ "$env" == "dev" ]; then
     rm -rf ./venv
-    # Symlink your python 2 installation to python2 if necessary
-    virtualenv -p python2 venv
-    . venv/bin/activate
+    virtualenv venv
+    # shellcheck disable=SC1091
+    source venv/bin/activate
 fi
 
 # Pip-tools required for pip sync
