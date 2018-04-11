@@ -15,10 +15,7 @@ image=$2
 
 # Build & push docker image from travis
 echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin
-docker build -t "$DOCKER_USER/$image" \
-  -f "$TRAVIS_BUILD_DIR"/docker/Dockerfile \
-  --build-arg port="$port" \
-  "$TRAVIS_BUILD_DIR"
+docker build -t "$DOCKER_USER/$image" -f Dockerfile --build-arg port="$port" .
 docker push "$DOCKER_USER/$image"
 
 # Free travis doesn't feature ssh keys. Workaround is to store them as
