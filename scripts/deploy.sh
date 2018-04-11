@@ -10,8 +10,8 @@ if [ -z "$TRAVIS" ]; then
     exit 1
 fi
 
-port=$1
-image=$2
+image=stacks-$1
+port=$2
 
 # Build & push docker image from travis
 echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin
