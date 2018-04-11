@@ -15,8 +15,7 @@ fi
 
 if [ "$env" == "dev" ]; then
     rm -rf ./venv
-    # Symlink your python 2 installation to python2 if necessary
-    virtualenv -p python2 venv
+    virtualenv venv
     # shellcheck disable=SC1091
     source venv/bin/activate
 fi
