@@ -27,13 +27,13 @@ docker_remote_pull_deploy() {
   ssh -i id_rsa \
     -o StrictHostKeyChecking=no \
     "${PROD_USER}@${PROD_ADDRESS}" << EOF
-      echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin
-      docker pull "$DOCKER_USER/$image"
-      docker rm -f "$image"
+      echo "${DOCKER_PASS}" | docker login -u="${DOCKER_USER}" --password-stdin
+      docker pull "${DOCKER_USER}/${image}"
+      docker rm -f "${image}"
       docker run -d
-        -p "$port:$port"
-        --name "$image"
-        "$DOCKER_USER/$image"
+        -p "${port}:${port}"
+        --name "${image}"
+        "${DOCKER_USER}/${image}"
 EOF
   rm id_rsa
 }
