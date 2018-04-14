@@ -30,9 +30,9 @@ docker_remote_pull_deploy() {
       echo "${DOCKER_PASS}" | docker login -u="${DOCKER_USER}" --password-stdin
       docker pull "${DOCKER_USER}/${image}"
       docker rm -f "${image}"
-      docker run -d
-        -p "${port}:${port}"
-        --name "${image}"
+      docker run -d \
+        -p "${port}:${port}" \
+        --name "${image}" \
         "${DOCKER_USER}/${image}"
 EOF
   rm id_rsa
