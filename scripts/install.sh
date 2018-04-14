@@ -13,7 +13,7 @@ print_env() {
   local env_arg="$1"
   case "${env_arg}" in
     "${TRAVIS_ENV_NAME}") echo "${TRAVIS_ENV_NAME}" ;;
-    "${PROD_ENV_NAME}") echo "{$PROD_ENV_NAME}" ;;
+    "${PROD_ENV_NAME}") echo "${PROD_ENV_NAME}" ;;
     *) echo "${DEV_ENV_NAME}" ;;
   esac
 }
