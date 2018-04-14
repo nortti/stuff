@@ -3,28 +3,54 @@
 # Installs the appropriate dependencies. In dev, does it in a virtualenv.
 # Usage: scripts/install.sh [dev|travis|prod]
 
-# Run from one level above this script
-cd "$(dirname "$0")/.." || exit 1
+readonly DEV_ENV_NAME='dev'
+readonly TRAVIS_ENV_NAME='travis'
+readonly PROD_ENV_NAME='prod'
 
-# Default env is dev
-if [ -z "$1" ]; then
-    env=dev
-else
-    env="$1"
-fi
+set -e # Exit on error
 
-if [ "$env" == "dev" ]; then
-    rm -rf ./venv
-    virtualenv venv
-    # shellcheck disable=SC1091
-    source venv/bin/activate
-fi
+print_env() {
+  local env_arg="$1"
+  case "${env_arg}" in
+    "${TRAVIS_ENV_NAME}") echo "${TRAVIS_ENV_NAME}" ;;
+    "${PROD_ENV_NAME}") echo "${PROD_ENV_NAME}" ;;
+    *) echo "${DEV_ENV_NAME}" ;;
+  esac
+}
 
-# Pip-tools required for pip sync
-pip install pip-tools
-pip-sync requirements/common-requirements.txt \
-         requirements/"$env"-requirements.txt
+cd_to_project_root() {
+  cd "$(dirname "$0")/.."
+}
 
-if [ "$env" == "dev" ]; then
-    echo Now run: source venv/bin/activate
-fi
+create_and_source_venv() {
+  rm -rf ./venv
+  virtualenv venv
+  # shellcheck disable=SC1091
+  source venv/bin/activate
+}
+
+install_requirements() {
+  local env="$1"
+  # pip-tools isn't compatible with pip>=10.0.0,
+  # see https://github.com/jazzband/pip-tools/issues/648
+  pip install pip==9.0.3
+  pip install pip-tools # Installs pip-sync
+  pip-sync requirements/common-requirements.txt \
+    requirements/"${env}"-requirements.txt
+}
+
+main() {
+  local env
+  env="$(print_env "$1")"
+  echo Using env: "${env}"
+
+  cd_to_project_root
+
+  if [[ "${env}" = "${DEV_ENV_NAME}" ]]; then
+    create_and_source_venv
+  fi
+
+  install_requirements "${env}"
+}
+
+main "$@"
