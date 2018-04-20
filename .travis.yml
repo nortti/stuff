@@ -11,13 +11,10 @@ python:
 install:
   - scripts/install.sh travis
 
-script: pytest --cov=hello_app tests && coveralls
+script: scripts/lint_and_test.sh
 
 jobs:
   include:
-    - stage: lint
-      script: shellcheck scripts/*.sh && flake8 hello_app tests
-
     - stage: deploy to production
       script: scripts/deploy.sh production 8200
       if: branch IN (master) AND type = push
