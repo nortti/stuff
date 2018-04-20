@@ -45,6 +45,7 @@ main() {
 
   # Skip for travis because already in a virtualenv there
   if [[ "${env}" != "${TRAVIS_ENV_NAME}" ]]; then
+    pip install virtualenv
     create_and_source_venv
   fi
 
