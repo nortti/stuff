@@ -31,10 +31,7 @@ create_and_source_venv() {
 
 install_requirements() {
   local env="$1"
-  # pip-tools isn't compatible with pip>=10.0.0,
-  # see https://github.com/jazzband/pip-tools/issues/648
-  pip install pip==9.0.3
-  pip install pip-tools # Installs pip-sync
+  pip install pip-tools # Includes pip-sync
   pip-sync requirements/common-requirements.txt \
     requirements/"${env}"-requirements.txt
 }
