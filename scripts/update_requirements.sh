@@ -1,7 +1,6 @@
 #!/bin/bash
 #
 # Update requirements-files for all envs
-# Usage: scripts/update_requirements.sh
 
 set -e # Exit on error
 
