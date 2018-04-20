@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Installs the appropriate dependencies. In dev, does it in a virtualenv.
+# Installs the appropriate dependencies into a virtualenv.
 # Usage: scripts/install.sh [dev|travis|prod]
 
 readonly DEV_ENV_NAME='dev'
@@ -43,7 +43,8 @@ main() {
 
   cd_to_project_root
 
-  if [[ "${env}" = "${DEV_ENV_NAME}" ]]; then
+  # Skip for travis because already in a virtualenv there
+  if [[ "${env}" != "${TRAVIS_ENV_NAME}" ]]; then
     create_and_source_venv
   fi
 
