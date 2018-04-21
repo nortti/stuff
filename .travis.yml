@@ -1,24 +1,20 @@
 sudo: required
-
 language: python
 
 python:
-  - '2.7'
-  - '3.6'
-  - 'pypy2.7-5.10.0'
-  - 'pypy3.5'
+  - 2.7
+  - 3.6
+  - pypy2.7-5.10.0
+  - pypy3.5
 
-install:
-  - scripts/install.sh travis
-
+install: scripts/install.sh travis
 script: scripts/lint_and_test.sh
 
-jobs:
-  include:
-    - stage: deploy to production
-      script: scripts/deploy.sh production 8200
-      if: branch IN (master) AND type = push
+jobs.include:
+  - stage: deploy to production
+    script: scripts/deploy.sh production 8200
+    if: branch IN (master) AND type = push
 
-    - stage: deploy to staging
-      script: scripts/deploy.sh staging 8210
-      if: branch IN (develop) AND type = push
+  - stage: deploy to staging
+    script: scripts/deploy.sh staging 8210
+    if: branch IN (develop) AND type = push
