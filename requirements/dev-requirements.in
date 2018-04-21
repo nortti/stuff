@@ -1,4 +1,5 @@
 flake8
+html-linter
 pip-tools
 pytest
 pytest-cov
