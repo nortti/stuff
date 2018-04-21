@@ -4,8 +4,6 @@ ARG port
 COPY . .
 
 RUN scripts/install.sh prod
-RUN source venv/bin/activate
 
-ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:${port}"
-ENTRYPOINT ["gunicorn", "hello_app.hello:app"]
+ENTRYPOINT ["scripts/docker_entrypoint.sh", "${port}"]
 EXPOSE "${port}"

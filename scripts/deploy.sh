@@ -10,7 +10,6 @@ set -e # Exit on error
 docker_build_push() {
   echo "${DOCKER_PASS}" | docker login -u="${DOCKER_USER}" --password-stdin
   docker build -t "${DOCKER_USER}/${image}" \
-    -f Dockerfile \
     --build-arg port="${port}" .
   docker push "${DOCKER_USER}/${image}"
 }

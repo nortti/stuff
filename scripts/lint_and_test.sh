@@ -3,6 +3,8 @@
 # Lint python code and shell scripts, and run tests.
 # Also run coveralls if running from travis.
 
+set -e
+
 # cd to project root
 cd "$(dirname "$0")/.."
 
