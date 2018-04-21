@@ -9,9 +9,7 @@ set -e # Exit on error
 
 docker_build_push() {
   echo "${DOCKER_PASS}" | docker login -u="${DOCKER_USER}" --password-stdin
-  docker build -t "${DOCKER_USER}/${image}" \
-    -f Dockerfile \
-    --build-arg port="${port}" .
+  docker build -t "${DOCKER_USER}/${image}" .
   docker push "${DOCKER_USER}/${image}"
 }
 
@@ -31,7 +29,7 @@ docker_remote_pull_deploy() {
       docker pull "${DOCKER_USER}/${image}"
       docker rm -f "${image}"
       docker run -d \
-        -p "${port}:${port}" \
+        -p "${port}:80" \
         --name "${image}" \
         "${DOCKER_USER}/${image}"
 EOF

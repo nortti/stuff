@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Installs the appropriate dependencies. In dev, does it in a virtualenv.
+# Installs the appropriate dependencies into a virtualenv.
 # Usage: scripts/install.sh [dev|travis|prod]
 
 readonly DEV_ENV_NAME='dev'
@@ -31,10 +31,7 @@ create_and_source_venv() {
 
 install_requirements() {
   local env="$1"
-  # pip-tools isn't compatible with pip>=10.0.0,
-  # see https://github.com/jazzband/pip-tools/issues/648
-  pip install pip==9.0.3
-  pip install pip-tools # Installs pip-sync
+  pip install pip-tools # Includes pip-sync
   pip-sync requirements/common-requirements.txt \
     requirements/"${env}"-requirements.txt
 }
@@ -46,7 +43,9 @@ main() {
 
   cd_to_project_root
 
-  if [[ "${env}" = "${DEV_ENV_NAME}" ]]; then
+  # Skip for travis because already in a virtualenv there
+  if [[ "${env}" != "${TRAVIS_ENV_NAME}" ]]; then
+    pip install virtualenv
     create_and_source_venv
   fi
 
